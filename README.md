@@ -11,7 +11,13 @@ The picture is from the book ["Parallel Robots"](https://aras.kntu.ac.ir/publica
 
 ## Inverse Kinematics Problem (IKP)
 In all of the notations, the term $P$ is the position of the end-effector, and the term $R$ is the rotation matrix. Let's note $R_1$ to be the radius of base, and $R_2$ to be the radius of the end-effector. As shown in the picture, the attach points on the base and end-effector are called $A_i$ and $B_i$ , respectively. The MSSM configuration of Gough-Stewart platforms happens where these attach points are placed by 60 degrees of distance through the circle. In this solution, the MSSM configuration is considered. Each actuator connects a point on the base to the end-effector, forming a kinematic chain. The kinematic chain for the $i_{th}$ actuator is shown as below: 
-$$l_i^2=(P + R*b_i - a_i)(P + R*b_i - a_i)^T$$
+$$l_i^2= (P + Rb_i -a_i)(P + Rb_i -a_i)^T$$
+Hence, six equations will be derived for the inverse kinematics of the platform. 
+
+## Forward Kinematics Problem (FKP)
+There are several methods to solve forward kinematics of this manipulator. Reaching a closed form formulation for the system will be complex and requires high computational cost. Let's take a look at the IKP formulation. As can be seen, IKP formulation is a set of 6 nonlinear equations with 6 variables. Solving these equations, where the length of actuators are given, leads to the FKP. 
+$$F_i = l_i^2 - (P + Rb_i -a_i)(P + Rb_i -a_i)^T =0$$
+This problem could be considered as a nonlinear least squares problem. In MATLAB, the optimizer named **lsqnonlin** uses the **trust-region-reflective** algorithm to solve such problems. 
 
 
 
